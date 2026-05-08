@@ -64,8 +64,8 @@ ul {
   padding: 0 40px;
 }
 
-.nav-inner {
-  display: flex;                   /* Flexbox for header layout */
+.header-inner {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: var(--max-width);
@@ -106,7 +106,7 @@ ul {
 }
 
 .hero-inner {
-  display: flex;                   /* Flexbox: text left, image right */
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
@@ -150,11 +150,13 @@ ul {
   height: 280px;
   width: auto;
   filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.35));
-  transition: transform 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+  will-change: transform;
 }
 
-.hero-image img:hover {
-  transform: scale(1.04) rotate(-2deg);
+@keyframes float {
+  0%,  100% { transform: translateY(0);    }
+  50%        { transform: translateY(-12px); }
 }
 
 /* =====================================================
@@ -195,7 +197,7 @@ ul {
 }
 
 .specials-header {
-  display: flex;                   /* Flexbox: heading left, button right */
+  display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 44px;
@@ -230,27 +232,41 @@ ul {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
 }
 
-/* Card image placeholders styled with brand colours + lemon assets */
-.card-image {
+/* Card image wrapper — provides the coloured background */
+.card-img-wrap {
   height: 220px;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.card-image--salad {
+.card-img-wrap--salad {
   background-color: #7da47d;
-  background-image: url("imagies/Asset 7@4x.png");
-  background-size: 55%;
 }
 
-.card-image--bruschetta {
+.card-img-wrap--bruschetta {
   background-color: var(--color-salmon);
 }
 
-.card-image--dessert {
+.card-img-wrap--dessert {
   background-color: var(--color-yellow);
-  background-image: url("imagies/Asset 9@4x.png");
-  background-size: 55%;
+}
+
+/* Actual <img> inside the card */
+.card-img {
+  height: 160px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card-img--tinted {
+  filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(10deg);
+}
+
+.card:hover .card-img {
+  transform: scale(1.08);
 }
 
 .card-body {
@@ -310,7 +326,7 @@ ul {
 }
 
 .footer-inner {
-  display: flex;                   /* Flexbox: two columns */
+  display: flex;
   align-items: flex-start;
   gap: 52px;
   max-width: var(--max-width);
@@ -360,6 +376,6 @@ ul {
 
 .footer-copyright {
   margin-top: 12px;
-  font-size: 0.82rem !important;
-  color: #999999 !important;
+  font-size: 0.82rem;
+  color: #999999;
 }
